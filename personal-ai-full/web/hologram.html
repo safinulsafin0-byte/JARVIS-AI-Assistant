@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>JARVIS Hologram Workspace</title>
+
+
+
+<link rel="stylesheet" href="hologram.css">
+
+
+
+
+
+<!-- THREE JS -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+
+
+
+<!-- MEDIAPIPE HANDS -->
+
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+
+
+
+
+</head>
+
+
+
+
+<body>
+
+
+
+<div class="hologram-app">
+
+
+
+
+
+<!-- HUD -->
+
+<header class="hud">
+
+
+<div class="logo">
+
+
+<span class="logo-box">
+J
+</span>
+
+
+
+<div>
+
+<h1>
+JARVIS
+</h1>
+
+
+<p>
+HOLOGRAM WORKSPACE
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="mode-status">
+
+<span id="modeText">
+
+SYSTEM READY
+
+</span>
+
+</div>
+
+
+
+</header>
+
+
+
+
+
+
+
+
+
+<!-- HOLOGRAM CANVAS -->
+
+
+<main class="workspace">
+
+
+<canvas id="hologramCanvas"></canvas>
+
+
+
+
+
+<div class="center-info">
+
+
+<h2 id="workspaceTitle">
+
+HOLOGRAPHIC ENGINE
+
+</h2>
+
+
+<p id="workspaceDescription">
+
+Say:
+"Jarvis I am working with particles"
+
+</p>
+
+
+
+</div>
+
+
+
+</main>
+
+
+
+
+
+
+
+
+
+<!-- CONTROL PANEL -->
+
+
+<section class="control-panel">
+
+
+
+<div class="command-box">
+
+
+
+<div>
+
+<span>
+MODE
+</span>
+
+
+<strong id="currentMode">
+
+NONE
+
+</strong>
+
+
+</div>
+
+
+
+
+
+<div>
+
+<span>
+GESTURE
+</span>
+
+
+<strong id="gestureStatus">
+
+OFF
+
+</strong>
+
+
+</div>
+
+
+
+
+
+<div>
+
+<span>
+VOICE
+</span>
+
+
+<strong id="voiceStatus">
+
+READY
+
+</strong>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="buttons">
+
+
+<button id="particleBtn">
+
+PARTICLES
+
+</button>
+
+
+
+<button id="lineBtn">
+
+LINES
+
+</button>
+
+
+
+<button id="clearBtn">
+
+CLEAR
+
+</button>
+
+
+
+<button id="backBtn">
+
+BACK TO JARVIS
+
+</button>
+
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- CAMERA -->
+
+<video
+
+id="gestureCamera"
+
+autoplay
+
+muted
+
+playsinline
+
+style="
+display:none;
+">
+
+</video>
+
+
+
+
+
+
+
+
+
+<!-- =========================
+SCRIPT ORDER
+========================= -->
+
+
+
+<!-- THREE CORE -->
+
+<script src="3d/hologram_core.js"></script>
+
+
+
+<!-- EFFECTS -->
+
+<script src="3d/particle_engine.js"></script>
+
+<script src="3d/line_draw_engine.js"></script>
+
+
+
+
+
+<!-- GESTURE -->
+
+<script src="gesture/hand_tracker.js"></script>
+
+<script src="gesture/gesture_engine.js"></script>
+
+
+
+
+
+<!-- CONTROLLER LAST -->
+
+<script src="hologram_app.js"></script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>JARVIS AI</title>
+
+
+<link rel="stylesheet" href="/style.css">
+
+
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+
+<!-- THREE JS -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+
+
+<!-- MEDIAPIPE -->
+
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+
+
+</head>
+
+
+
+<body>
+
+
+<div class="app">
+
+
+
+<header class="topbar">
+
+<div class="brand">
+
+<div class="brand-mark">
+J
+</div>
+
+
+<div>
+
+<div class="brand-name">
+JARVIS
+</div>
+
+<div class="brand-subtitle">
+AI COMMAND CENTER
+</div>
+
+
+</div>
+
+
+</div>
+
+
+<div class="command-status" id="commandStatus">
+
+<span class="command-status-dot"></span>
+
+<span>
+System Ready
+</span>
+
+</div>
+
+
+</header>
+
+
+
+
+
+<div class="main-row">
+
+
+
+<section class="chat-panel">
+
+
+<div class="chat-shell">
+
+<section class="chat-section" id="chat">
+
+
+<div class="welcome-message" id="welcome">
+
+
+<div class="welcome-icon">
+J
+</div>
+
+
+<h1>
+Hello, I'm JARVIS
+</h1>
+
+
+<p>
+Give me a command and I will execute it.
+</p>
+
+
+</div>
+
+
+</section>
+
+
+</div>
+
+
+
+
+
+<div class="input-area">
+
+
+<div class="input-container">
+
+
+<textarea
+
+id="messageInput"
+
+placeholder="Give JARVIS a command..."
+
+rows="1">
+
+</textarea>
+
+
+
+<input
+
+type="file"
+
+id="attachment-input"
+
+hidden>
+
+
+
+<button
+
+id="attachment-btn"
+
+class="attachment-button">
+
++
+
+</button>
+
+
+
+<button
+
+id="sendButton"
+
+class="send-button">
+
+➤
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+<aside class="office-panel">
+
+
+<div class="stage">
+
+
+<canvas
+
+id="officeCanvas"
+
+width="960"
+
+height="480">
+
+</canvas>
+
+
+
+
+
+<div class="activity-chip">
+
+
+<div class="label">
+
+SYSTEM ACTIVITY
+
+</div>
+
+
+<div
+
+id="activityText"
+
+class="text">
+
+Waiting...
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="orb-widget">
+
+
+<canvas
+
+id="orbCanvas"
+
+width="120"
+
+height="120">
+
+</canvas>
+
+
+
+<div id="orbLabel">
+
+SYSTEM ACTIVE
+
+</div>
+
+
+<div id="orbSub">
+
+idle
+
+</div>
+
+
+
+
+<div class="orb-controls">
+
+
+<button
+
+id="micButton"
+
+class="orb-btn mic">
+
+MIC
+
+</button>
+
+
+
+<button
+
+id="stopButton"
+
+class="orb-btn stop">
+
+STOP
+
+</button>
+
+
+
+<button
+
+id="gestureButton"
+
+class="orb-btn gesture">
+
+GESTURE
+
+</button>
+
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+</aside>
+
+
+
+</div>
+
+
+
+
+
+
+<video
+
+id="gestureCamera"
+
+autoplay
+
+muted
+
+playsinline
+
+style="display:none">
+
+</video>
+
+
+
+<div id="hologramWorkspace"></div>
+
+
+
+
+
+<!-- ========================= -->
+<!-- GESTURE -->
+<!-- ========================= -->
+
+
+<script src="/web/gesture/commands.js"></script>
+
+<script src="/web/gesture/hand_tracker.js"></script>
+
+<script src="/web/gesture/gesture_engine.js"></script>
+
+
+
+
+
+<!-- ========================= -->
+<!-- 3D -->
+<!-- ========================= -->
+
+
+<script src="/web/3d_engine.js"></script>
+
+<script src="/web/hologram_engine.js"></script>
+
+
+
+
+
+<!-- ========================= -->
+<!-- APP -->
+<!-- ========================= -->
+
+
+<script src="/app.js"></script>
+<script src="/web/ai/proactive_voice.js"></script>
+
+
+
+
+<!-- ========================= -->
+<!-- AI BRAIN -->
+<!-- ========================= -->
+
+
+<script src="/web/ai/ai_state.js"></script>
+
+<script src="/web/ai/command_schema.js"></script>
+
+<script src="/web/ai/action_router.js"></script>
+<script src="/web/ai/drawing_agent.js"></script>
+<script src="/web/ai/jarvis_brain.js"></script>
+
+
+
+
+
+<!-- ========================= -->
+<!-- VOICE (CORRECT PATH) -->
+<!-- ========================= -->
+
+
+<script src="/web/voice_engine.js"></script>
+<script src="/web/ai/proactive_voice.js"></script>
+
+
+
+
+
+
+<script>
+
+
+window.addEventListener("load",()=>{
+
+
+console.log("==============================");
+
+console.log("JARVIS ALL SYSTEMS LOADED");
+
+
+console.log(
+"Brain:",
+typeof window.jarvisThink
+);
+
+
+
+console.log(
+"Router:",
+typeof window.executeAIAction
+);
+
+
+
+console.log(
+"Hologram:",
+typeof window.openHologramWorkspace
+);
+
+
+
+console.log(
+"3D:",
+typeof window.create3DObject
+);
+
+
+
+console.log(
+"THREE:",
+typeof THREE
+);
+
+
+
+
+
+if(typeof initVoice==="function"){
+
+
+initVoice();
+
+
+console.log(
+"VOICE INITIALIZED"
+);
+
+
+
+}
+
+else{
+
+console.error(
+"VOICE ENGINE MISSING"
+);
+
+
+}
+
+
+});
+
+</script>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>JARVIS Local AI</title>
+<style>
+body{font-family:Arial;background:#0b1020;color:#eee;max-width:900px;margin:40px auto;padding:20px}
+#chat{height:65vh;overflow:auto;border:1px solid #333;padding:16px;border-radius:12px}
+input{width:80%;padding:14px;background:#111827;color:white;border:1px solid #444;border-radius:8px}
+button{padding:14px 18px;margin-left:6px}
+.msg{margin:12px 0;padding:10px;border-radius:8px;background:#151c30}
+</style>
+</head>
+<body>
+<h1>JARVIS — Local AI</h1>
+<div id="chat"></div>
+<br>
+<input id="q" placeholder="Talk to JARVIS...">
+<button onclick="send()">Send</button>
+<script>
+async function send(){
+ const q=document.getElementById('q');
+ if(!q.value.trim()) return;
+ add("You: "+q.value);
+ const r=await fetch("/chat",{method:"POST",headers:{"Content-Type":"application/json"},
+ body:JSON.stringify({message:q.value})});
+ const j=await r.json(); add("JARVIS: "+j.reply); q.value="";
+}
+function add(t){const d=document.createElement("div");d.className="msg";d.textContent=t;
+document.getElementById("chat").appendChild(d);document.getElementById("chat").scrollTop=999999;}
+</script>
+</body>
+</html>

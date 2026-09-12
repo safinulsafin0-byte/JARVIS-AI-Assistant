@@ -1,0 +1,50 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Environment
+.env
+
+# Node
+node_modules/
+
+# VS Code
+.vscode/
+
+# Database
+*.sqlite3
+*.db
+
+# Logs
+*.log
+
+# Model files
+*.bin
+*.gguf
+
+# Browser data
+personal-ai-full/browser/profile/
+**/Cache/
+**/cache/
+**/IndexedDB/
+**/Local Storage/
+**/Session Storage/
+
+# Temporary
+tmp/
+temp/
+
+# Model cache
+personal-ai-full/models/
+
+*.vsix
+
+*_backup.*
+
+personal-ai-full/generated_images/
+personal-ai-full/screenshots/
+personal-ai-full/test.*
+personal-ai-full/memory/*.json
+
+personal-ai-full/coding_engine/workspace/

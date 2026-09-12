@@ -1,0 +1,77 @@
+{
+    "name": "jarvis-ai-copilot",
+    "displayName": "JARVIS AI Copilot",
+    "description": "Local AI software engineering assistant",
+    "version": "1.0.0",
+    "publisher": "jarvis-ai",
+
+    "engines": {
+        "vscode": "^1.90.0"
+    },
+
+    "categories": [
+        "AI",
+        "Other"
+    ],
+
+    "main": "./extension.js",
+
+    "icon": "media/icon.png",
+
+    "activationEvents": [
+        "onView:jarvis.chat",
+        "onCommand:jarvis.openChat"
+    ],
+
+    "contributes": {
+
+        "commands": [
+            {
+                "command": "jarvis.openChat",
+                "title": "Open JARVIS"
+            }
+        ],
+
+
+        "viewsContainers": {
+
+            "activitybar": [
+
+                {
+                    "id": "jarvis",
+                    "title": "JARVIS",
+                    "icon": "media/icon.png"
+                }
+
+            ]
+
+        },
+
+
+        "views": {
+
+            "jarvis": [
+
+                {
+                    "type": "webview",
+                    "id": "jarvis.chat",
+                    "name": "JARVIS Chat",
+                    "icon": "media/icon.png"
+                }
+
+            ]
+
+        }
+
+    },
+
+
+    "files": [
+        "extension.js",
+        "media/**"
+    ],
+
+
+    "license": "MIT"
+
+}
